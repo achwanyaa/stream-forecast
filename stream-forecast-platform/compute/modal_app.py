@@ -154,18 +154,22 @@ def run_chronos_fold(
 def launch_experiment(
     dataset_id: str,
     model_family: str,
-    horizons: list[int],
-    config: dict,
+    horizons: str = "1,5,15,60",
+    config: str = "{}",
 ) -> None:
     """Create experiment rows in Supabase (status='running'), generate fold
     specs, fan out all folds in parallel using .starmap(), compute aggregate
     metrics + residual autopsy + chart-ready downsampled JSON slices, upload
     to Supabase Storage, and update status='completed'."""
+    import json
     from pipeline.export import orchestrate_experiment
+
+    parsed_horizons = [int(h.strip()) for h in horizons.split(",") if h.strip()] if isinstance(horizons, str) else horizons
+    parsed_config = json.loads(config) if isinstance(config, str) else config
 
     orchestrate_experiment(
         dataset_id=dataset_id,
         model_family=model_family,
-        horizons=horizons,
-        config=config,
+        horizons=parsed_horizons,
+        config=parsed_config,
     )
