@@ -88,14 +88,14 @@ export default function InspectorPage({ params }: PageProps) {
     async function loadExp() {
       setLoading(true);
       try {
-        const { data: exp } = await supabase
+        const { data: rawExp } = await supabase
           .from('experiments')
           .select('*')
           .eq('id', experimentId)
           .single();
 
-        if (exp) {
-          setExperiment(exp as Experiment);
+        if (rawExp) {
+          setExperiment(rawExp as unknown as Experiment);
           const { data: foldData } = await supabase
             .from('fold_results')
             .select('*')
@@ -103,7 +103,7 @@ export default function InspectorPage({ params }: PageProps) {
             .order('fold_idx', { ascending: true });
 
           if (foldData && foldData.length > 0) {
-            setFolds(foldData as FoldResult[]);
+            setFolds(foldData as unknown as FoldResult[]);
           }
         }
       } catch {

@@ -71,14 +71,15 @@ export default function AutopsyPage({ params }: PageProps) {
     async function loadData() {
       setLoading(true);
       try {
-        const { data: exp } = await supabase
+        const { data: rawExp } = await supabase
           .from('experiments')
           .select('*')
           .eq('id', experimentId)
           .single();
 
-        if (exp) {
-          setExperiment(exp as Experiment);
+        if (rawExp) {
+          const exp = rawExp as unknown as Experiment;
+          setExperiment(exp);
           if (exp.autopsy_storage_path) {
             const { data: fileData, error } = await supabase.storage
               .from('artifacts')

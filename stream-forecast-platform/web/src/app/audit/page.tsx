@@ -106,7 +106,7 @@ export default function AuditPage() {
           .single();
 
         if (!error && data) {
-          const report = data as AuditReport;
+          const report = data as unknown as AuditReport;
           const { data: storageData } = await supabase.storage
             .from('artifacts')
             .download(report.storage_path);
@@ -284,7 +284,7 @@ export default function AuditPage() {
           </div>
 
           <div className="mt-4 p-3 rounded-lg bg-slate-950/80 border border-slate-800/80 text-[11px] text-slate-400 leading-relaxed font-sans">
-            <strong className="text-slate-200">Audit Diagnosis:</strong> Extreme leptokurtic distribution with 700x Gaussian 5σ excess confirms necessity of volatility normalization $\tilde{y}_{t, H}$ and Huber / Quantile loss.
+            <strong className="text-slate-200">Audit Diagnosis:</strong> Extreme leptokurtic distribution with 700x Gaussian 5σ excess confirms necessity of volatility normalization ỹ_(t,H) and Huber / Quantile loss.
           </div>
         </div>
       </div>
