@@ -1,0 +1,28 @@
+[project]
+name = "stream-forecast-platform"
+version = "0.1.0"
+description = "Multi-Rate Behavioral Stream Forecasting & Diagnostics Platform"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "polars==1.14.0",
+    "pyarrow==18.0.0",
+    "numpy==1.26.4",
+    "scipy==1.14.1",
+    "numba==0.60.0",
+    "scikit-learn==1.5.2",
+    "hmmlearn==0.3.3",
+    "statsmodels==0.14.4",
+    "lightgbm==4.5.0",
+    "supabase==2.10.0",
+    "pydantic==2.9.2",
+    "modal",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
